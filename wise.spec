@@ -11,7 +11,6 @@ Group:		Sciences/Biology
 License:	GPL
 URL:		http://www.ebi.ac.uk/Wise2/doc_wise2.html
 Source:		ftp://ftp.ebi.ac.uk/pub/software/wise2/%{name}%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
 Wise2 is a package focused on comparisons of biopolymers, commonly DNA and 
