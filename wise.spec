@@ -1,6 +1,6 @@
 %define name	wise
 %define version	2.2.0
-%define rel	6
+%define rel	7
 %define release	%mkrel %{rel}
 
 Name:		%{name}
@@ -11,6 +11,7 @@ Group:		Sciences/Biology
 License:	GPL
 URL:		http://www.ebi.ac.uk/Wise2/doc_wise2.html
 Source:		ftp://ftp.ebi.ac.uk/pub/software/wise2/%{name}%{version}.tar.bz2
+Patch:		fix_getline.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
@@ -27,6 +28,7 @@ for Extreme value distribution fitting.
 
 %prep
 %setup -q -n %{name}%{version}
+%patch
 
 %build
 cd src && %make CFLAGS="-c $RPM_OPT_FLAGS" realall
