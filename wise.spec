@@ -1,6 +1,6 @@
 %define name	wise
 %define version	2.2.0
-%define rel	9
+%define rel	10
 %define release	%mkrel %{rel}
 
 Name:		%{name}
@@ -10,7 +10,7 @@ Summary:	Comparisons of DNA and protein sequences
 Group:		Sciences/Biology
 License:	GPL
 URL:		http://www.ebi.ac.uk/Wise2/doc_wise2.html
-Source0:	ftp://ftp.ebi.ac.uk/pub/software/wise2/%{name}%{version}.tar.bz2
+Source0:	ftp://ftp.ebi.ac.uk/pub/software/wise2/%{name}%{version}.tar.gz
 Patch0:		fix_getline.patch
 
 %description
@@ -100,4 +100,3 @@ echo "setenv WISECONFIGDIR %{_datadir}/%{name}" > %{buildroot}%{_sysconfdir}/pro
 
 * Sat Jan 24 2004 Guillaume Rousse <guillomovitch@mandrake.org> 2.2.0-1mdk
 - first mdk release, after a spec file stolen from Luc Ducazu <luc@biolinux.org>
-
