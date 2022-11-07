@@ -1,17 +1,18 @@
-%define name	wise
-%define version	2.2.0
-%define rel	10
-%define release	%mkrel %{rel}
-
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		wise
+Version:	2.4.1
+Release:	1
 Summary:	Comparisons of DNA and protein sequences
 Group:		Sciences/Biology
 License:	GPL
-URL:		http://www.ebi.ac.uk/Wise2/doc_wise2.html
-Source0:	ftp://ftp.ebi.ac.uk/pub/software/wise2/%{name}%{version}.tar.gz
-Patch0:		fix_getline.patch
+URL:		https://www.ebi.ac.uk/~birney/wise2/
+Source0:	http://www.ebi.ac.uk/~birney/%{name}2/wise%{version}.tar.gz
+# (debian)
+Patch0:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-build.patch
+Patch1:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-isnumber.patch
+Patch2:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-glib2.patch
+Patch3:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-getline.patch
+Patch4:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-ld--as-needed.patch
+Patch5:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-mayhem.patch
 
 %description
 Wise2 is a package focused on comparisons of biopolymers, commonly DNA and 
@@ -25,35 +26,45 @@ was written by Richard Copley using the underlying Wise2 libraries.
 Wise2 also uses code from Sean Eddy for reading HMMs and
 for Extreme value distribution fitting.
 
-%prep
-%setup -q -n %{name}%{version}
-%patch0 -p0
-
-%build
-cd src && %make CFLAGS="-c $RPM_OPT_FLAGS" realall
-
-%install
-rm -rf %{buildroot}
-
-install -d -m 755 %{buildroot}%{_bindir}
-install -m 755 src/models/{pswdb,psw,genewisedb,estwisedb,estwise,genewise,dba,dnal,genomewise} %{buildroot}%{_bindir}
-
-install -d -m 755 %{buildroot}%{_datadir}/%{name}
-install -m 644 wisecfg/* %{buildroot}%{_datadir}/%{name}
-
-# configuration
-install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-echo "export WISECONFIGDIR=%{_datadir}/%{name}" > %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
-echo "setenv WISECONFIGDIR %{_datadir}/%{name}" > %{buildroot}%{_sysconfdir}/profile.d/%{name}.csh
-
 %files
 %doc README LICENSE docs
 %{_bindir}/*
 %{_datadir}/%{name}
 %config(noreplace) %{_sysconfdir}/profile.d/*
 
+#--------------------------------------------------------------------
 
+%prep
+%autosetup -p1 -n %{name}%{version}
 
+## fix interpreter in examples
+sed -i 's#/usr/local/bin/perl#/usr/bin/perl#' docs/gettex.pl
+
+%build
+#export LDFLAGS="%{__global_ldflags}"
+%before_configure
+%make -C src CFLAGS="-c %{optflags} %(pkg-config --cflags glib-2.0)" realall
+
+# CFLAGS=" -c $RPM_OPT_FLAGS -pthread -D_GNU_SOURCE %(pkg-config --cflags glib-2.0) -D_POSIX_C_SOURCE=200112L" all
+
+%install
+# binaries
+install -dm 755 %{buildroot}%{_bindir}
+#install -m 755 src/models/{pswdb,psw,genewisedb,estwisedb,estwise,genewise,dba,dnal,genomewise} %{buildroot}%{_bindir}
+install -pm 755 src/models/{dba,dnal,estwise,estwisedb,genewise,genewisedb,promoterwise,psw,pswdb,scanwise,sywise} %{buildroot}%{_bindir}
+
+# data
+install -dm 755 %{buildroot}%{_datadir}/%{name}
+install -pm 644 wisecfg/* %{buildroot}%{_datadir}/%{name}
+
+# configuration
+install -dm 755 %{buildroot}%{_sysconfdir}/profile.d
+echo "export WISECONFIGDIR=%{_datadir}/%{name}" > %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
+echo "setenv WISECONFIGDIR %{_datadir}/%{name}" > %{buildroot}%{_sysconfdir}/profile.d/%{name}.csh
+
+%check
+export WISECONFIGDIR=$PWD/wisecfg
+make -C src test
 
 %changelog
 * Wed Dec 08 2010 Oden Eriksson <oeriksson@mandriva.com> 2.2.0-9mdv2011.0

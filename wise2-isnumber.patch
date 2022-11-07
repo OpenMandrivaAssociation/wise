@@ -1,0 +1,18 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 02_isnumber.dpatch by Philipp Benner <mail@philipp-benner.de>
+##
+## DP: Replace isnumber() (which does not exist on linux) by isdigit().
+
+@DPATCH@
+diff -urNad wise-2.4.0~/src/models/phasemodel.c wise-2.4.0/src/models/phasemodel.c
+--- wise-2.4.0~/src/models/phasemodel.c	2007-07-01 22:44:39.000000000 +0200
++++ wise-2.4.0/src/models/phasemodel.c	2007-07-16 00:24:16.000000000 +0200
+@@ -20,7 +20,7 @@
+     if( line[0] == '#' ) {
+       continue;
+     }
+-    if( !isnumber(line[0]) ) {
++    if( !isdigit(line[0]) ) {
+       warn("Bad looking line in intron file, %s",line);
+       continue;
+     }

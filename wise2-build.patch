@@ -1,0 +1,21 @@
+--- wise-2.4.0~/src/makefile	2007-07-15 23:39:24.000000000 +0200
++++ wise-2.4.0/src/makefile	2007-07-15 23:41:11.000000000 +0200
+@@ -109,7 +109,7 @@
+ bin : 
+ 	mkdir bin
+ 	cp models/pswdb models/psw models/genewisedb models/estwisedb models/estwise models/genewise models/dba models/dnal models/promoterwise network/scanwise_server models/scanwise ./bin
+-	csh welcome.csh
++	./welcome.csh
+ 
+ libs : 
+ 	(cd base   ; $(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" libwisebase.a )
+diff -urNad wise-2.4.0~/src/welcome.csh wise-2.4.0/src/welcome.csh
+--- wise-2.4.0~/src/welcome.csh	2007-07-15 23:39:24.000000000 +0200
++++ wise-2.4.0/src/welcome.csh	2007-07-15 23:40:46.000000000 +0200
+@@ -1,4 +1,4 @@
+-#!/bin/tcsh -f
++#!/bin/sh
+ 
+ echo ""
+ echo "Welcome to Wise2.4"
+
