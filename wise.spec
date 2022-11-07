@@ -14,6 +14,8 @@ Patch3:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-
 Patch4:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-ld--as-needed.patch
 Patch5:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-mayhem.patch
 
+BuildRequires:	pkgconfig(glib-2.0)
+
 %description
 Wise2 is a package focused on comparisons of biopolymers, commonly DNA and 
 protein sequence. Wise2's particular forte is the comparison of DNA sequence 
