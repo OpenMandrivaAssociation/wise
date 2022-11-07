@@ -1,0 +1,22 @@
+--- a/src/dnaindex/compressed_protein_index.dy
++++ b/src/dnaindex/compressed_protein_index.dy
+@@ -220,7 +220,7 @@
+ {
+   fatal("For compressed protein indexes, impossible to add numbers directly");
+ 
+-  return NULL;
++  return TRUE;
+ }
+ 
+ ArraySeqHead * lookup_array_head_CompressedProteinIndex(void * data,int seq_number)
+--- a/src/dnaindex/compressed_protein_index.c
++++ b/src/dnaindex/compressed_protein_index.c
+@@ -199,7 +199,7 @@
+ {
+   fatal("For compressed protein indexes, impossible to add numbers directly");
+ 
+-  return NULL;
++  return 0;
+ }
+ 
+ # line 226 "compressed_protein_index.dy"

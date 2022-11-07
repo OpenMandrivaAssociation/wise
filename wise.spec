@@ -6,13 +6,14 @@ Group:		Sciences/Biology
 License:	GPL
 URL:		https://www.ebi.ac.uk/~birney/wise2/
 Source0:	http://www.ebi.ac.uk/~birney/%{name}2/wise%{version}.tar.gz
+Patch0:		wise-2.4.1-fix_format.patch
 # (debian)
-Patch0:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-build.patch
-Patch1:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-isnumber.patch
-Patch2:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-glib2.patch
-Patch3:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-getline.patch
-Patch4:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-ld--as-needed.patch
-Patch5:         https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-mayhem.patch
+Patch1:		https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-build.patch
+Patch2:		https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-isnumber.patch
+Patch3:		https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-glib2.patch
+Patch4:		https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-getline.patch
+Patch5:		https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-ld--as-needed.patch
+Patch6:		https://src.fedoraproject.org/rpms/wise2/raw/rawhide/f/%{name}2-mayhem.patch
 
 BuildRequires:	pkgconfig(glib-2.0)
 
@@ -44,7 +45,7 @@ sed -i 's#/usr/local/bin/perl#/usr/bin/perl#' docs/gettex.pl
 
 %build
 %before_configure
-%make -C src CFLAGS="-c %{optflags} %(pkg-config --cflags glib-2.0) -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L" realall
+make -C src CFLAGS="-c %{optflags} %(pkg-config --cflags glib-2.0) -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L" realall
 
 %install
 # binaries
