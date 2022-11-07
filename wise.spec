@@ -44,7 +44,7 @@ sed -i 's#/usr/local/bin/perl#/usr/bin/perl#' docs/gettex.pl
 
 %build
 %before_configure
-%make -C src CFLAGS="-c %{optflags}  -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L" realall
+%make -C src CFLAGS="-c %{optflags} %(pkg-config --cflags glib-2.0) -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L" realall
 
 %install
 # binaries
