@@ -43,11 +43,8 @@ for Extreme value distribution fitting.
 sed -i 's#/usr/local/bin/perl#/usr/bin/perl#' docs/gettex.pl
 
 %build
-#export LDFLAGS="%{__global_ldflags}"
 %before_configure
-%make -C src CFLAGS="-c %{optflags} %(pkg-config --cflags glib-2.0)" realall
-
-# CFLAGS=" -c $RPM_OPT_FLAGS -pthread -D_GNU_SOURCE %(pkg-config --cflags glib-2.0) -D_POSIX_C_SOURCE=200112L" all
+%make -C src CFLAGS="-c %{optflags}  -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L" realall
 
 %install
 # binaries
