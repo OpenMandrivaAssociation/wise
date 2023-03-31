@@ -1,6 +1,6 @@
 Name:		wise
 Version:	2.4.1
-Release:	1
+Release:	2
 Summary:	Comparisons of DNA and protein sequences
 Group:		Sciences/Biology
 License:	GPL
